@@ -14,4 +14,8 @@ urlpatterns = [
     path('home/administrar_mentor/eliminar_alumno', views.administrarMentor, name='eliminar mentor'),
     path('home/administrar_alumno/solicitar_alumno_id/', views.solicitarAlumnoID, name='solicitarAlumnoID'),
     path('success/', views.success, name='success'),
+    path('home/administrar_asignaturas/visualizar_asignaturas/', views.visualizarAsignaturas, name='visualizar asignaturas'),
+    path('home/administrar_asignaturas/crear_asignatura/', views.crearAsignatura, name='crear asignatura'),
+    path('home/administrar_asignaturas/eliminar_asignatura/', views.eliminarAsignatura, name='eliminar asignatura'),
+    path('home/administrar_asignaturas/', views.administrarAsignaturas, name='administrar asignaturas'),
 ]

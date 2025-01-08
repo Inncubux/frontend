@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Asignaturas</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #87CEEB;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Visualizar Asignaturas</h1>
+    </div>
+    <div class="container">
+        {% for asignatura in asignaturas %}
+        <div class="card">
+            <h2>{{ asignatura.nombre }}</h2>
+            <p>{{ asignatura.descripcion }}</p>
+            <p>Sección: {{ asignatura.seccion }}</p>
+        </div>
+        {% endfor %}
+        <a href="{% url 'administrar asignaturas' %}" class="back-button">Volver a Administrar Asignaturas</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Asignatura</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #87CEEB; /* Color celeste */
+            padding: 20px;
+            text-align: center;
+            color: white; /* Color de las letras */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px); /* Altura menos el margen superior */
+        }
+        .form-container {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Crear Asignatura</h1>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="number" name="horas" placeholder="Horas" required>
+                <input type="text" name="seccion" placeholder="Sección" required>
+                <button type="submit">Crear Asignatura</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

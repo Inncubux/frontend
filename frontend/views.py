@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 import requests
 
-from frontend.models import Alumno
+from frontend.models import Alumno, Asignatura  # Import Asignatura model
 
 def login(request):
     """
@@ -101,6 +101,72 @@ def solicitarAlumnoID(request):
 
 def administrarMentor(request):
     return render(request, 'adm_mentores.html')
+
+def visualizarAsignaturas(request):
+    """
+    Manejar la visualización de todas las asignaturas.
+    Recupera todos los registros de asignaturas y renderiza la plantilla 'visualizar_asignaturas.html'.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: La plantilla 'visualizar_asignaturas.html' renderizada con la lista de asignaturas.
+    """
+    asignaturas = Asignatura.objects.all()
+    return render(request, 'visualizar_asignaturas.html', {'asignaturas': asignaturas})
+
+def crearAsignatura(request):
+    """
+    Manejar la creación de una nueva asignatura.
+    Si el método de solicitud es POST, crea una nueva asignatura con los datos proporcionados.
+    Si el método de solicitud no es POST, renderiza la plantilla 'crear_asignatura.html'.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: Una redirección a la lista de asignaturas si se crea una asignatura,
+                      o una página HTML renderizada con el formulario de creación de asignatura.
+    """
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        horas = request.POST.get('horas')
+        seccion = request.POST.get('seccion')
+        Asignatura.objects.create(nombre=nombre, horas=horas, seccion=seccion)
+        return redirect('visualizar asignaturas')  # Redirigir a la vista de lista de asignaturas
+    return render(request, 'crear_asignatura.html')
+
+def eliminarAsignatura(request):
+    """
+    Manejar la eliminación de una asignatura de la base de datos.
+    Si el método de solicitud es POST, recupera el nombre y la sección de la asignatura de los datos POST,
+    elimina el registro correspondiente de la asignatura de la base de datos y redirige a la página de administración de asignaturas.
+    Si el método de solicitud no es POST, renderiza la plantilla 'eliminar_asignatura.html'.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: Una redirección a la página de administración de asignaturas si se elimina una asignatura,
+                      o una página HTML renderizada con el formulario de eliminación de asignatura.
+    """
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        seccion = request.POST.get('seccion')
+        try:
+            asignatura = Asignatura.objects.get(nombre=nombre, seccion=seccion)
+            asignatura.delete()
+            messages.success(request, 'Asignatura eliminada exitosamente.')
+            return redirect('administrar asignaturas')  # Redirigir a la vista de administración de asignaturas
+        except Asignatura.DoesNotExist:
+            messages.error(request, 'Error: No se encontró la asignatura con el nombre y sección proporcionados.')
+
+    return render(request, 'eliminar_asignatura.html')
+
+def administrarAsignaturas(request):
+    """
+    Renderizar la página de administración de asignaturas.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: La plantilla 'adm_asignaturas.html' renderizada.
+    """
+    return render(request, 'adm_asignaturas.html')
 
 def success(request):
     """
