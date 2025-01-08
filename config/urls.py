@@ -18,4 +18,6 @@ urlpatterns = [
     path('home/administrar_asignaturas/crear_asignatura/', views.crearAsignatura, name='crear asignatura'),
     path('home/administrar_asignaturas/eliminar_asignatura/', views.eliminarAsignatura, name='eliminar asignatura'),
     path('home/administrar_asignaturas/', views.administrarAsignaturas, name='administrar asignaturas'),
+    path('alumno', views.home, name='alumno'),
+    path('asignatura', views.verAsignaturas, name='ver asignaturas'),
 ]

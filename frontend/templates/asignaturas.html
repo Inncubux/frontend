@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignaturas</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #87CEEB; /* Color celeste */
+            padding: 20px;
+            text-align: center;
+            color: white; /* Color de las letras */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: calc(100vh - 60px); /* Altura menos el margen superior */
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Asignaturas</h1>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Horas</th>
+                    <th>Sección</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asignatura in asignaturas %}
+                <tr>
+                    <td>{{ asignatura.nombre }}</td>
+                    <td>{{ asignatura.horas }}</td>
+                    <td>{{ asignatura.seccion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

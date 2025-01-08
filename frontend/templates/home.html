@@ -3,39 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Inicio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #87CEEB; /* Color celeste */
+            padding: 20px;
+            text-align: center;
+            color: white; /* Color de las letras */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px); /* Altura menos el margen superior */
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+        .card a {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a Mi Sitio Web</h1>
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre">Sobre Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section id="inicio">
-        <h2>Inicio</h2>
-        <p>Esta es la página de inicio de nuestro sitio web.</p>
-    </section>
-    <section id="sobre">
-        <h2>Sobre Nosotros</h2>
-        <p>Información sobre nuestra empresa.</p>
-    </section>
-    <section id="servicios">
-        <h2>Servicios</h2>
-        <p>Descripción de los servicios que ofrecemos.</p>
-    </section>
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Formulario de contacto y detalles.</p>
-    </section>
-    <footer>
-        <p>&copy; 2023 Mi Sitio Web. Todos los derechos reservados.</p>
-    </footer>
+    <div class="header">
+        <h1>Panel de Usuario</h1>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Visualizar Asignaturas</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aquí puedes visualizar todas las asignaturas disponibles.</p>
+                <a href="asignatura" class="btn btn-primary">Ver Asignaturas</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

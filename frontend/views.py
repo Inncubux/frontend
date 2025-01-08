@@ -20,15 +20,35 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
-        request.session['username'] = username
-        request.session['role'] = 'admin'
+        try:
+            if username == 'admin' and password == 'admin':
+                request.session['username'] = username
+                request.session['role'] = 'admin'
+                return redirect('home')
+            else:
+                request.session['role'] = 'alumno'
+                return redirect('alumno')
+            
+        except Exception as e:
+            messages.error(request, 'Error: No se pudo iniciar sesión. Inténtalo de nuevo.')
+            return render(request, 'login.html')
         
     return render(request, 'login.html')
 
 def home(request):
-    return render(request, 'eliminar_alumno.html')
-
+    if request.session.get('username') is None:
+        return redirect('login')
+    
+    try:
+        role = request.session['role']
+        if role == 'admin':
+            return render(request, 'home_adm.html')
+        if role == 'alumno':
+            return render(request, 'home.html')
+    except Exception as e:
+        return render(request, 'home.html')
+    
+    
 def inscripcionAlumno(request):
     
     return render(request, 'inscripcionAlumno.html')
@@ -181,4 +201,16 @@ def success(request):
         HttpResponse: La plantilla 'success.html' renderizada.
     """
     return render(request, 'success.html')
+
+def verAsignaturas(request):
+    """
+    Manejar la visualización de todas las asignaturas.
+    Recupera todos los registros de asignaturas y renderiza la plantilla 'ver_asignaturas.html'.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: La plantilla 'ver_asignaturas.html' renderizada con la lista de asignaturas.
+    """
+    asignaturas = Asignatura.objects.all()
+    return render(request, 'asignaturas.html', {'asignaturas': asignaturas})
 
