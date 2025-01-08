@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 import requests
 
 from frontend.models import Alumno
@@ -33,7 +34,8 @@ def inscripcionAlumno(request):
     return render(request, 'inscripcionAlumno.html')
 
 def administrarAlumno(request):
-    return render(request, 'adm_alumnos.html')
+    alumnos = Alumno.objects.all()
+    return render(request, 'adm_alumnos.html', {'alumnos': alumnos})
 
 def eliminarAlumno(request):
     """
@@ -50,32 +52,55 @@ def eliminarAlumno(request):
     """
     if request.method == 'POST':
         alumno_id = request.POST['alumno']
-        Alumno.objects.filter(id=alumno_id).delete()
+        alumno = get_object_or_404(Alumno, id=alumno_id)
+        alumno.delete()
+        messages.success(request, 'Alumno eliminado exitosamente.')
         return redirect('success') 
 
     alumnos = Alumno.objects.all()
     return render(request, 'eliminar_alumno.html', {'alumnos': alumnos})
 
-
-
 def modificarAlumno(request):
-    alumno_id = request.POST.get('alumno')
+    """
+    Manejar la modificación de los datos de un alumno específico.
+    Si el método de solicitud es POST, actualiza los datos del alumno con los valores proporcionados.
+    Si el método de solicitud no es POST, recupera los datos del alumno y renderiza la plantilla 'modificar_alumno.html'.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: Una redirección a la lista de alumnos si se modifica un alumno,
+                      o una página HTML renderizada con los datos del alumno.
+    """
+    alumno_id = request.GET.get('alumno_id')
+    if not alumno_id:
+        return redirect('administrarAlumno')  # Redirigir si falta el ID del alumno
+
     alumno = get_object_or_404(Alumno, id=alumno_id)
     if request.method == 'POST':
         alumno.nombre = request.POST.get('nombre')
         alumno.email_institucional = request.POST.get('email_institucional')
         alumno.email_personal = request.POST.get('email_personal')
         alumno.save()
-        return redirect('alumno_list')  # Cambia esto al nombre de tu vista de lista de alumnos
+        return redirect('administrar alumno') # Redirigir a la vista de lista de alumnos
     else:
-        alumno_id = request.GET.get('alumno_id')  # Obtener el ID del alumno desde los parámetros de la URL
-        alumno = get_object_or_404(Alumno, id=alumno_id)
         return render(request, 'modificar_alumno.html', {'alumno': alumno})
+
+def solicitarAlumnoID(request):
+    """
+    Solicitar el ID del alumno para modificar sus datos.
+    Renderiza una plantilla que solicita al usuario ingresar el ID del alumno.
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+    Returns:
+        HttpResponse: La plantilla 'solicitar_alumno_id.html' renderizada.
+    """
+    if request.method == 'POST':
+        alumno_id = request.POST.get('alumno_id')
+        return redirect(f'/home/administrar_alumno/modificar_alumno/?alumno_id={alumno_id}')
+    return render(request, 'solicitar_alumno_id.html', {'show_modal': True, 'alumno_id': request.POST.get('alumno_id', '')})
 
 def administrarMentor(request):
     return render(request, 'adm_mentores.html')
-
-
 
 def success(request):
     """

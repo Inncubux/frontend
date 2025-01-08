@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Alumno</title>
+    <title>Solicitar ID del Alumno</title>
     <style>
         body {
             background-color: #87CEEB; /* Color celeste */
@@ -25,8 +25,8 @@
         .form-container h2 {
             margin-bottom: 20px;
         }
-        .form-container select {
-            width: 90%; /* Ajustar el ancho del combobox */
+        .form-container input {
+            width: 90%; /* Ajustar el ancho del input */
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -53,8 +53,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
             justify-content: center;
             align-items: center;
         }
@@ -91,21 +90,19 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Eliminar Alumno</h2>
-        <form id="deleteForm" action="/home/administrar_alumno/eliminar_alumno/" method="post">
+        <h2 id="formTitle">Modificar Alumno</h2>
+        <form method="POST" id="solicitarForm" aria-labelledby="formTitle">
             {% csrf_token %}
-            <select name="alumno" required>
-                {% for alumno in alumnos %}
-                    <option value="{{ alumno.id }}">{{ alumno.nombre }}</option>
-                {% endfor %}
-            </select>
-            <button type="button" onclick="showModal()">Eliminar</button>
+            <label for="alumno_id">ID del Alumno:</label><br>
+            <input type="text" id="alumno_id" name="alumno_id" value="{{ alumno_id }}" aria-required="true"><br><br>
+            <button type="button" onclick="showModal()">Continuar</button>
         </form>
     </div>
 
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content">
-            <p>¿Desea eliminar al alumno? Este cambio es irreversible.</p>
+            <h2 id="modalTitle">Confirmación</h2>
+            <p>¿Desea continuar con la modificación del alumno?</p>
             <button class="cancel" onclick="hideModal()">Cancelar</button>
             <button class="accept" onclick="submitForm()">Aceptar</button>
         </div>
@@ -114,14 +111,16 @@
     <script>
         function showModal() {
             document.getElementById('myModal').style.display = 'flex';
+            document.getElementById('myModal').setAttribute('aria-hidden', 'false');
         }
 
         function hideModal() {
             document.getElementById('myModal').style.display = 'none';
+            document.getElementById('myModal').setAttribute('aria-hidden', 'true');
         }
 
         function submitForm() {
-            document.getElementById('deleteForm').submit();
+            document.getElementById('solicitarForm').submit();
         }
     </script>
 </body>

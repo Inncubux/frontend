@@ -1,25 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Alumno</title>
+    <style>
+        body {
+            background-color: #87CEEB; /* Color celeste */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            width: 90%; /* Ajustar el ancho del input */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 90%; /* Ajustar el ancho del botón */
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Modificar Alumno</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre" value="{{ alumno.nombre }}"><br><br>
+    <div class="form-container">
+        <h2>Modificar Alumno</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" value="{{ alumno.nombre }}"><br><br>
 
-        <label for="email_institucional">Email Institucional:</label><br>
-        <input type="email" id="email_institucional" name="email_institucional" value="{{ alumno.email_institucional }}"><br><br>
+            <label for="email_institucional">Email Institucional:</label><br>
+            <input type="email" id="email_institucional" name="email_institucional" value="{{ alumno.email_institucional }}"><br><br>
 
-        <label for="email_personal">Email Personal:</label><br>
-        <input type="email" id="email_personal" name="email_personal" value="{{ alumno.email_personal }}"><br><br>
+            <label for="email_personal">Email Personal:</label><br>
+            <input type="email" id="email_personal" name="email_personal" value="{{ alumno.email_personal }}"><br><br>
 
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <a href="{% url 'alumno_list' %}">Volver a la Lista de Alumnos</a>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <a href="/home/administrar_alumno/">Volver a la Lista de Alumnos</a>
+    </div>
 </body>
 </html>
