@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Alumno</title>
+</head>
+<body>
+    <h1>Modificar Alumno</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" value="{{ alumno.nombre }}"><br><br>
+
+        <label for="email_institucional">Email Institucional:</label><br>
+        <input type="email" id="email_institucional" name="email_institucional" value="{{ alumno.email_institucional }}"><br><br>
+
+        <label for="email_personal">Email Personal:</label><br>
+        <input type="email" id="email_personal" name="email_personal" value="{{ alumno.email_personal }}"><br><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a href="{% url 'alumno_list' %}">Volver a la Lista de Alumnos</a>
+</body>
+</html>
